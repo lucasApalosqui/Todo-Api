@@ -25,4 +25,6 @@
 	Todo.Domain.Api = dotnet add reference ..\Todo.Domain, dotnet add reference ..\Todo.Domain.Infra
 	Todo.Domain.Infra = dotnet add reference ..\Todo.Domain
 	Todo.Domain.Tests = dotnet add reference ..\Todo.Domain
+
+
 	
