@@ -27,7 +27,7 @@ namespace Todo.Domain.Commands
                     .Requires()
                     .HasMinLen(Title, 3, "Title", "Por Favor descreva melhor esta tarefa!")
                     .HasMinLen(User, 6, "User", "Usuário Inválido!")
-                    .IsLowerThan(Date, DateTime.Now, "Date", "Data não pode ser menor que a data de hoje!")
+                    .IsGreaterThan(Date, DateTime.Now, "Date", "Data não pode ser menor que a data de hoje!")
                 );
         }
     }
