@@ -19,6 +19,7 @@ namespace Todo.Domain.Tests.QueryTests
             _items.Add(new TodoItem("Tarefa 3", "lucas apalosqui", DateTime.Now.AddDays(1)));
             _items.Add(new TodoItem("Tarefa 4", "usuario1", DateTime.Now));
             _items.Add(new TodoItem("Tarefa 5", "lucas apalosqui", DateTime.Now));
+
         }
 
         [TestMethod]
@@ -58,6 +59,16 @@ namespace Todo.Domain.Tests.QueryTests
 
             var result = _items.AsQueryable().Where(TodoQueries.GetByPeriod("lucas apalosqui", DateTime.Now.AddDays(1), true));
             Assert.AreEqual(1, result.Count());
+        }
+
+        [TestMethod]
+        public void Dada_a_consulta_deve_retornar_tarefa_pelo_id()
+        {
+            var tarefa = _items[4];
+            var result = _items.AsQueryable().Where(TodoQueries.GetById("lucas apalosqui", tarefa.Id));
+
+            Assert.AreEqual(result.Count(), 1);
+
         }
     }
 }

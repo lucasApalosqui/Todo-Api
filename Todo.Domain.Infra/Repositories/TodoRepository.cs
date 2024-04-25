@@ -1,48 +1,73 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Todo.Domain.Entities;
+using Todo.Domain.Infra.Contexts;
+using Todo.Domain.Queries;
 using Todo.Domain.Repositories;
 
 namespace Todo.Domain.Infra.Repositories
 {
     public class TodoRepository : ITodoRepository
     {
+        private readonly TodoContext _context;
+
+        public TodoRepository(TodoContext context)
+        {
+            _context = context;
+        }
+
         public void Create(TodoItem todo)
         {
-            throw new NotImplementedException();
+            _context.Todos.Add(todo);
+            _context.SaveChanges();
         }
 
         public void Update(TodoItem todo)
         {
-            throw new NotImplementedException();
+            _context.Entry(todo).State = EntityState.Modified; 
+            _context.SaveChanges();
         }
 
         public TodoItem GetById(Guid id, string user)
         {
-            throw new NotImplementedException();
+            return _context.Todos
+                   .FirstOrDefault(x => x.User == user && x.Id == id);
         }
 
         public IEnumerable<TodoItem> GetAll(string user)
         {
-            throw new NotImplementedException();
+            return _context.Todos
+                   .AsNoTracking()
+                   .Where(TodoQueries.GetAll(user))
+                   .OrderBy(x => x.Date);
         }
 
         public IEnumerable<TodoItem> GetAllDone(string user)
         {
-            throw new NotImplementedException();
+            return _context.Todos
+                   .AsNoTracking()
+                   .Where(TodoQueries.GetAllDone(user))
+                   .OrderBy(x => x.Date);
         }
 
         public IEnumerable<TodoItem> GetAllUndone(string user)
         {
-            throw new NotImplementedException();
+            return _context.Todos
+                   .AsNoTracking()
+                   .Where(TodoQueries.GetAllUndone(user))
+                   .OrderBy(x => x.Date);
         }
 
         public IEnumerable<TodoItem> GetByPeriod(string user, DateTime date, bool done)
         {
-            throw new NotImplementedException();
+            return _context.Todos
+                .AsNoTracking()
+                .Where(TodoQueries.GetByPeriod(user, date, done))
+                .OrderBy(x => x.Date);
         }
 
     }

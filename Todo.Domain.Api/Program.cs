@@ -2,6 +2,7 @@ using Todo.Domain.Infra.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Todo.Domain.Repositories;
 using Todo.Domain.Handlers;
+using Todo.Domain.Infra.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
