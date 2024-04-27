@@ -27,4 +27,10 @@
 	Todo.Domain.Tests = dotnet add reference ..\Todo.Domain
 
 
+8 - ao criar As Migrations lembrar de referenciar o infra com a api com o comando
+	dotnet ef migrations add InitialMigration --startup-project ..\Todo.Domain.Api
+
+além de instalar o SqlServer no Infra tambem
+
+
 	
